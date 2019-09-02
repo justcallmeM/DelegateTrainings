@@ -13,14 +13,20 @@ namespace DemoLibrary
         public List<ProductModel> Items { get; set; } = new List<ProductModel>();
 
         //passing in the arbitrary delegate method
-        public decimal GenerateTotal(MentionDiscount mentionDiscount,
-            Func<List<ProductModel>, decimal, decimal> calculateDiscountetTotal)
+        public decimal GenerateTotal(MentionDiscount mentionSubtotal, 
+            Func<List<ProductModel>, decimal, decimal> calculateDiscountetTotal, //Func returns a value
+            Action<string> tellUserWeAreDiscounting) //Action returns a void
         {
             decimal subTotal = Items.Sum(x => x.Price);
 
-            mentionDiscount(subTotal); // calling the method mentionDiscount and passing in the subTotal (loosly coupled, because genrateTotal doesnt know anything about mentionDiscount).
+            mentionSubtotal(subTotal); // calling the method mentionDiscount and passing in the subTotal (loosly coupled, because genrateTotal doesnt know anything about mentionDiscount).
+
+            tellUserWeAreDiscounting("We are applying your discount.");
 
             return calculateDiscountetTotal(Items, subTotal);
         }
+
+        //delegates are great when we for example need to complete multiple methods in one method. We can either Alert the system as we do it here
+        //or do multiple methods with multiple returns. But the returns are generated and processed inside that one method, which wraps all of the other methods.
     }
 }
