@@ -28,5 +28,7 @@ namespace DemoLibrary
 
         //delegates are great when we for example need to complete multiple methods in one method. We can either Alert the system as we do it here
         //or do multiple methods with multiple returns. But the returns are generated and processed inside that one method, which wraps all of the other methods.
+
+        //delegates are also very useful when 
     }
 }
